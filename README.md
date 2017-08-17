@@ -19,4 +19,4 @@ Neural network will be used to help this system learning the existed ranked beat
 
 ## Who is Frostofwinter
 
-God
+Collaborator of this project.
