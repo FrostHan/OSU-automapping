@@ -1,6 +1,11 @@
 function WriteOsuFile(s,osuObjCr,dir,diffname)
 
-filename=[s.Metadata.Artist,' - ',s.Metadata.Title,' (',s.Metadata.Artist,')'];
+% Write a .osu file
+% ------------------
+% By Dongqi Han, OIST
+
+
+filename=[s.Metadata.Artist,' - ',s.Metadata.Title,' (',s.Metadata.Creator,')'];
 SliderMultiplier=0.18;
 % timedistance=(60/(BPM*BeatDivisor))*1000;
 AR=9;
@@ -12,85 +17,85 @@ osufp=fopen([dir,filename,' [',diffname,'].osu'],'w');
 
 % try 
 
-    fprintf(osufp,'%s\r\n\r\n','osu file format v14');
+fprintf(osufp,'%s\r\n\r\n','osu file format v14');
 
 
-    %-------General-------
-    fprintf(osufp,'%s\r\n','[General]');
-    fprintf(osufp,'%s','AudioFilename: ');
-    fprintf(osufp,'%s\r\n',s.General.AudioFilename);
-    fprintf(osufp,'%s\r\n',['AudioLeadIn: ',s.General.AudioLeadIn]);
-    fprintf(osufp,'%s\r\n',['PreviewTime: ',s.General.PreviewTime]);
-    fprintf(osufp,'%s\r\n',['Countdown: ',s.General.Countdown]);
-    fprintf(osufp,'%s\r\n','SampleSet: Soft');
-    fprintf(osufp,'%s\r\n',['StackLeniency: ',s.General.StackLeniency]);
-    fprintf(osufp,'%s\r\n','Mode: 0');
-    fprintf(osufp,'%s\r\n',['LetterboxInBreaks: ',s.General.LetterBoxInBreaks]);
-    fprintf(osufp,'%s\r\n\r\n','WidescreenStoryboard: 0');
+% -------General-------
+fprintf(osufp,'%s\r\n','[General]');
+fprintf(osufp,'%s','AudioFilename: ');
+fprintf(osufp,'%s\r\n',s.General.AudioFilename);
+fprintf(osufp,'%s\r\n',['AudioLeadIn: ',s.General.AudioLeadIn]);
+fprintf(osufp,'%s\r\n',['PreviewTime: ',s.General.PreviewTime]);
+fprintf(osufp,'%s\r\n',['Countdown: ',s.General.Countdown]);
+fprintf(osufp,'%s\r\n','SampleSet: Soft');
+fprintf(osufp,'%s\r\n',['StackLeniency: ',s.General.StackLeniency]);
+fprintf(osufp,'%s\r\n','Mode: 0');
+fprintf(osufp,'%s\r\n',['LetterboxInBreaks: ',s.General.LetterboxInBreaks]);
+fprintf(osufp,'%s\r\n\r\n','WidescreenStoryboard: 0');
 
 
-    %------Editor--------
-    fprintf(osufp,'%s\r\n','[Editor]');
-    fprintf(osufp,'%s\r\n','DistanceSpacing: 1');
-    fprintf(osufp,'%s\r\n',['BeatDivisor: ',s.Editor.BeatDivisor]);
-    fprintf(osufp,'%s\r\n','GridSize: 4');
-    fprintf(osufp,'%s\r\n\r\n','TimelineZoom: 1');
+% ------Editor--------
+fprintf(osufp,'%s\r\n','[Editor]');
+fprintf(osufp,'%s\r\n','DistanceSpacing: 1');
+fprintf(osufp,'%s\r\n',['BeatDivisor: ',s.Editor.BeatDivisor]);
+fprintf(osufp,'%s\r\n','GridSize: 4');
+fprintf(osufp,'%s\r\n\r\n','TimelineZoom: 1');
 
 
-    %------Metadata--------
-    fprintf(osufp,'%s\r\n','[Metadata]');
-    fprintf(osufp,'%s','Title:');
-    fprintf(osufp,'%s\r\n',s.Metadata.Title);
-    if exist(s.Metadata.ArtistUnicode,'var')
-        fprintf(osufp,'%s','TitleUnicode: ');
-        fprintf(osufp,'%s\r\n',s.Metadata.TitleUnicode);
-    end
-    fprintf(osufp,'%s\r\n',['Artist: ',s.Metadata.Artist]);
-    if exist(s.Metadata.ArtistUnicode,'var')
-        fprintf(osufp,'%s\r\n',['ArtistUnicode: ',s.Metadata.ArtistUnicode]);
-    end
-    fprintf(osufp,'%s\r\n',['Creator: ',s.Metadata.Creator]);
-    fprintf(osufp,'%s\r\n',['Version: ',num2str(diffname)]);
-    fprintf(osufp,'%s\r\n',['Source: ',s.Metadata.Source]);
-    fprintf(osufp,'%s\r\n',['Tags: ',s.Metadata.Tags]);
-    fprintf(osufp,'%s\r\n','BeatmapID:-1');
-    fprintf(osufp,'%s\r\n\r\n','BeatmapSetID:-1');
+% ------Metadata--------
+fprintf(osufp,'%s\r\n','[Metadata]');
+fprintf(osufp,'%s','Title:');
+fprintf(osufp,'%s\r\n',s.Metadata.Title);
+if exist('s.Metadata.ArtistUnicode','var')
+    fprintf(osufp,'%s','TitleUnicode: ');
+    fprintf(osufp,'%s\r\n',s.Metadata.TitleUnicode);
+end
+fprintf(osufp,'%s\r\n',['Artist: ',s.Metadata.Artist]);
+if exist('s.Metadata.ArtistUnicode','var')
+    fprintf(osufp,'%s\r\n',['ArtistUnicode: ',s.Metadata.ArtistUnicode]);
+end
+fprintf(osufp,'%s\r\n',['Creator: ',s.Metadata.Creator]);
+fprintf(osufp,'%s\r\n',['Version: ',num2str(diffname)]);
+fprintf(osufp,'%s\r\n',['Source: ',s.Metadata.Source]);
+fprintf(osufp,'%s\r\n',['Tags: ',s.Metadata.Tags]);
+fprintf(osufp,'%s\r\n','BeatmapID:-1');
+fprintf(osufp,'%s\r\n\r\n','BeatmapSetID:-1');
 
 
-    %------Difficulty-------
-    fprintf(osufp,'%s\r\n','[Difficulty]');
-    fprintf(osufp,'%s\r\n',['HPDrainRate:',num2str(HP)]);
-    fprintf(osufp,'%s\r\n',['CircleSize:',num2str(CS)]);
-    fprintf(osufp,'%s\r\n',['OverallDifficulty:',num2str(OD)]);
-    fprintf(osufp,'%s\r\n',['ApproachRate:',num2str(AR)]);
-    fprintf(osufp,'%s\r\n',['SliderMultiplier:',num2str(SliderMultiplier)]);
-    fprintf(osufp,'%s\r\n\r\n','SliderTickRate:1');
+% ------Difficulty-------
+fprintf(osufp,'%s\r\n','[Difficulty]');
+fprintf(osufp,'%s\r\n',['HPDrainRate:',num2str(HP)]);
+fprintf(osufp,'%s\r\n',['CircleSize:',num2str(CS)]);
+fprintf(osufp,'%s\r\n',['OverallDifficulty:',num2str(OD)]);
+fprintf(osufp,'%s\r\n',['ApproachRate:',num2str(AR)]);
+fprintf(osufp,'%s\r\n',['SliderMultiplier:',num2str(SliderMultiplier)]);
+fprintf(osufp,'%s\r\n\r\n','SliderTickRate:1');
 
-    %------Events----------
-    fprintf(osufp,'%s\r\n\r\n','[Events]');
+% ------Events----------
+fprintf(osufp,'%s\r\n\r\n','[Events]');
 
-    %------Timing points--------
-    fprintf(osufp,'%s\r\n','[TimingPoints]');
-    for i=1:length(s.TimingPoints)
-        fprintf(osufp,'%s\r\n\r\n',s.TimingPoints{i});
-    end
-    fprintf(osufp,'\r\n');
+% ------Timing points--------
+fprintf(osufp,'%s\r\n','[TimingPoints]');
+for i=1:length(s.TimingPoints)
+    fprintf(osufp,'%s\r\n\r\n',s.TimingPoints{i});
+end
+fprintf(osufp,'\r\n');
 
-    %------HitObjects-----------
-    fprintf(osufp,'%s\r\n','[HitObjects]');
+% ------HitObjects-----------
+fprintf(osufp,'%s\r\n','[HitObjects]');
 
 
-    for k = 1:length(osuObjCr)
+for k = 1:length(osuObjCr)
 
-         if osuObjCr(k).type=='circle' || osuObjCr(k).type=='slider' 
+     if strcmp(osuObjCr(k).type,'circle') || strcmp(osuObjCr(k).type,'slider' )
 
-            fprintf(osufp,['%d,%d,',int2str(osuObjCr.time(k)),',1,0,0:0:0:0:\r\n'],osuObjCr(k).x,osuObjCr(k).y);
+        fprintf(osufp,['%d,%d,',int2str(osuObjCr(k).timing),',1,0,0:0:0:0:\r\n'],osuObjCr(k).x,osuObjCr(k).y);
 
-         end
+     end
 
-    end
-    
-    fclose(osufp);
+end
+
+fclose(osufp);
 % catch
 %     fclose(osufp);
 % end
