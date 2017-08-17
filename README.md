@@ -15,7 +15,7 @@ OSU! has a community to promote users communication, where uploaded beatmaps are
 
 OSU-automapping is meant to be created to "map" any songs by Artificial Intelligence. The audio file will be considered as the input, and a new beatmap will be as output.
 
-Neural network will be used to help this system learning the existed beatmaps.
+Neural network will be used to help this system learning the existed ranked beatmaps.
 
 ## Who is Frostofwinter
 
