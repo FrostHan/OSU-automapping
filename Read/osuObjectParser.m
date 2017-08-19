@@ -84,7 +84,7 @@ for i = 1:N
         
         %slider time length (interval)
         osuObj(i).interval=SliderLength*InheritedTiming/SliderMultiplier/10000*(60000/osuObj(i).currentBPM);
-
+        osuObj(i).length=round( str2num(s.Editor.BeatDivisor) * osuObj(i).interval/(60000/osuObj(i).currentBPM)); % how many points 
 
 %-----------------------circle------------------------
 
