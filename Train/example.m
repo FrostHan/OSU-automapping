@@ -53,7 +53,7 @@ clear NET
 clear TR
 M=3;
 for i=1:M
-    net=bsnet2([33,33,1]);
+    net=osunet2([33,33,1]);
     [net,tr]=train(net,input1,target1);
     NET{i}=net;
     TR{i}=tr;
