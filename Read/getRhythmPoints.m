@@ -1,3 +1,5 @@
+
+
 function Ts=getRhythmPoints(s)
 
 % This is the function for generating the rhythm points where the hitObjects can be placed
