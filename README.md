@@ -19,5 +19,4 @@ Neural network will be used to help this system learning the existed ranked beat
 
 ## Who is Frostofwinter
 
-Collaborator of this project.
-Who are the main programmers and designer for the model "FrostNova"
+Collaborator of this project, the main programmers and designer for the model "FrostNova"
