@@ -1,3 +1,6 @@
+
+
+
 function osuDataInput = getOsuDataInput(Ts,songfile,localfilters)
 
 % This function is for generating the inputs to the neural network, as a
@@ -15,17 +18,18 @@ function osuDataInput = getOsuDataInput(Ts,songfile,localfilters)
 % By Dongqi Han, OIST
 
 
-t_reso=2; % temporal resolution (in milisecond)
+t_reso=1; % temporal resolution (in milisecond)
 N=90;
 P=4; % how many neighbour points are considered(P-1)
+Q=5; % how many fitlers for each p
 
 if ~exist('localfilters','var')
 %     filterdata=load('frostnova_filters.mat');
     x=1:(2*N+1);
     for p=(-P):P
-        for i=1:10
+        for i=1:Q
             point_p=(p+P)/(2*P)*(2*N+1);
-            localfilters{i+10*(p+P)}=exp(-((x-point_p)/(2*N+1)*(i*8)).^2);
+            localfilters{i+Q*(p+P)}=exp(-((x-point_p)/(2*N+1)*(i*2*Q)).^2);
         end
 %         for i=11:20
 %             localfilters{i+20*(p+P)}=sign(x-(p+P)*N/(2*P+1)-1).*abs((x-(p+P)*N/(2*P+1)-1)/N/(2*P+1)).^((i-10)/4);
@@ -109,7 +113,7 @@ end
 
 
 osuDataInput.data_t=data_t;
-data_t=mapminmax(data_t,-1,1);
+data_t=mapminmax(data_t,0,1);
 % osuDataInput.data_f=data_f;
 % osuDataInput.F=F;
 
@@ -128,6 +132,3 @@ end
 osuDataInput.input=input;
 
 end
-
-
-

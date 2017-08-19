@@ -1,4 +1,4 @@
-function net=bsnet2(layersizes)
+function net=osunet2(layersizes)
 % An multi-layer neural network for simulation of birdsong neurons.
 % layersize: [layersize1,layersize2,...,layersizeN]
 % version2
@@ -31,11 +31,11 @@ end
 
 %----define layer properties------
 for n=1:net.numLayers
-    net.layers{n}.transferFcn='logsig';
+    net.layers{n}.transferFcn='tansig';
     net.layers{n}.size=layersizes(n);  %number of neurons
 end
 
-net.layers{net.numLayers}.transferFcn='poslin'; %The last layer, linear
+net.layers{net.numLayers}.transferFcn='satlin'; %The last layer, linear
 % net.layers{net.numLayers}.initFcn='initnw';
 
 %----define functions--------
@@ -43,7 +43,7 @@ net.trainFcn='trainlm';
 net.trainParam.lr = 0.01;  
 net.trainParam.min_grad=0;
 net.trainParam.epochs=10000;
-net.trainParam.max_fail=16;
+net.trainParam.max_fail=30;
 net.trainParam.goal=1e-5;
 
 net.divideFcn='dividerand';

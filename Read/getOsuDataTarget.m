@@ -31,35 +31,34 @@ end
 for z=z0:length(osuObj) 
     
     
-    while n<length(Ts)-1&&abs(osuObj(z).timing-Ts(n))>3
+    while n<length(Ts)-1&&abs(osuObj(z).timing-Ts(n))>3&&(Ts(n)-osuObj(z).timing<10)
         n=n+1;
     end
     
-    if n>=length(Ts)-1
+    if n>=length(Ts)-2
         break;
     end
     
-    if n>1
+    if n>1 && abs(osuObj(z).timing-Ts(n))<3
         switch osuObj(z).type
             case 'circle'
-                osuDataTarget.isCircle(n)=1;
+                osuDataTarget.isCircle(n-1)=1; % since the first timing point is dropped
             case 'slider'
-                osuDataTarget.isSliderHead(n)=1;
+                osuDataTarget.isSliderHead(n-1)=1;
+                for k=1:osuObj(z).turns
+                    osuDataTarget.isSliderEnd(n-1+k*(osuObj(z).length))=1;
+                end
             case 'spinner'
-                osuDataTarget.isSpinner(n)=1;
+                osuDataTarget.isSpinnerHead(n-1)=1;
         end
-        osuDataTarget.timing(n)=osuObj(z).timing;
+        osuDataTarget.timing(n-1)=osuObj(z).timing;
     end
     
-    
+
     n=n+1;
     
     
 end
 
-
-
-
 end
-
 

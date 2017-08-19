@@ -19,4 +19,8 @@ Neural network will be used to help this system learning the existed ranked beat
 
 ## Who is Frostofwinter
 
-Collaborator of this project.
+Collaborator of this project, the main programmers and designer for the model "FrostNova"
+
+## What is FrOstNova
+
+FrostNova is a model to realized automapping by (perhaps recurrent) convolution neural network(CNN), where the input is the spectrogram at the time region \[t_k-\delta t, t_k+\delta t\] of the given song, and the output/target is a 3-dimensional 1-or-0 vector \{isCircle,isSliderHead,isSliderEnd\}
