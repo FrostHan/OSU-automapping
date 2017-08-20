@@ -1,4 +1,4 @@
-function checkSpectro(Ts,osuDataInput,osuDataTarget)
+function checkSpectro(Ts,osuDataInput,Ts,f)
 
 % This function is for visualizing the spectrogram around a rhythm points,
 % where it can be showed which type of object is there.
@@ -9,13 +9,14 @@ function checkSpectro(Ts,osuDataInput,osuDataTarget)
 
 N=length(Ts);
 
-idxs=Randperm(N-5,3)+5;
+idxs=randperm(N-10,30)+5;
 
 for i=idxs
     
     figure
     subplot(3,1,1:2)
-    contourf(squeeze(osuDataInput(i,:,:)),'linestyle','none')
+    contourf(TQ,squeeze(osuDataInput(i,:,:)),'linestyle','none')
+    ylim([0,30])
     hold on
     
     subplot(3,1,3)
@@ -23,12 +24,19 @@ for i=idxs
     
     for j=1:9
         [~,tp]=max(osuDataTarget(i-5+j,:));
-        if tp=1 %circle
-            plot([i,i],[0.5,0.5],'ro')
+        hold on
+        if tp==1 %circle
+            plot([j,j],[0.5,0.5],'r.','markersize',30)
+        elseif tp==2 %sliderHead
+            plot([j,j+0.5],[0.5,0.5],'b->','markersize',10)
+            plot([j,j],[0,1],'b')
+        elseif tp==3 %sliderEnd
+            plot([j,j],[0,1],'b')
+            plot([j-0.5,j],[0.5,0.5],'b->','markersize',10)
         end
     end
     
-    xlim([0.9,5.1])
+    xlim([0.9,9.1])
     ylim([0,1])
 end
 
