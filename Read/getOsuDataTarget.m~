@@ -62,8 +62,8 @@ for z=z0:length(osuObj)
     end
     
     for i = 1:length(Ts)
-        if sum(osuDataTarget(i,1:3),2)==0
-            osuDataTarget(i,4)=1;
+        if 
+            
         end
     end
 

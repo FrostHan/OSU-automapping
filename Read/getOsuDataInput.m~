@@ -1,4 +1,4 @@
-function [osuDataInput,TS,F] = getOsuDataInput(s,songfile)
+function osuDataInput = getOsuDataInput(s,songfile)
 
 % This function is for generating the inputs to the neural network, as a
 % formatized data of the songfile.
@@ -9,14 +9,13 @@ function [osuDataInput,TS,F] = getOsuDataInput(s,songfile)
 % is the osu structure.
 % songfile: the path of the music file.
 % -----------Output------------
-% osuDataInput: A Tensor of input for TENSORFLOW, each data set contains
-% the matrix of spectrogram around a rhythm point.
+% osuDataInput: A Tensor of input for TENSORFLOW
 % 
 % -----------------------
 % By Dongqi Han, OIST
 
-t_reso = 15; % temporal resolution estimation(in milisecond) 
-N_t = 90; % divide 
+t_reso = 30; % temporal resolution estimation(in milisecond) 
+N_t = 30; % divide 
 P = 4;
 
 
@@ -33,9 +32,8 @@ window=hann(2*Nfft+1);
 S1 = log(1+abs(S1));
 S1 = S1 / max(max(S1)); %normalize
 
-[S2,f,t]=spectrogram(data2,window,[],Nfft,fs);
-t=t*1000; %convert to ms
-t=t-t_reso;%modify
+[S2,F,T]=spectrogram(data2,window,[],Nfft,fs);
+T=T*1000; %convert to ms
 
 S2 = log(1+abs(S2));
 S2 = S2 / max(max(S2)); %normalize
@@ -43,11 +41,10 @@ S2 = S2 / max(max(S2)); %normalize
 S=(S1+S2)/2;
 
 
-
 Ts=getRhythmPoints(s);
 
 
-osuDataInput=zeros(length(Ts),length(f),2*N_t+1); %Input Tensor
+osuDataInput=zeros(length(Ts),2*N_t+1,length(F)); %Input Tensor
 
 
 
@@ -63,16 +60,14 @@ osuDataInput=zeros(length(Ts),length(f),2*N_t+1); %Input Tensor
 % end
 
 
-[TS,~]=meshgrid(Ts,f);
-[T,F]=meshgrid(t,f);
 
-for n=1:length(Ts)
-    tq(1:N_t+1)=linspace(Ts(max(n-P,1)),Ts(n),N_t+1);
+for n=1:length(Ts) 
+    tq(1:N_t+1)=linspace(Ts*max(n-P),0.01),Ts(n),N_t+1);
     tq(N_t+1:2*N_t+1)=linspace(Ts(n),Ts(min(n+P,length(Ts))),N_t+1);
 
-    [TQ,FQ]=meshgrid(tq,f);
+    tmp=interp1(T,S_t,tq);
     
-    osuDataInput(n,:,:)=interp2(T,F,S,TQ,FQ);
+    osuDataInput(n,:,:)=interp2(T,F,S',tmp,F);
     osuDataInput(n,:,:)=osuDataInput(n,:,:)/max(max(osuDataInput(n,:,:)));
     n
 end

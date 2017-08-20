@@ -16,9 +16,9 @@ output=net(input);
 
 counter=1;
 
-for n=2:length(Ts)-1
+for n=1:length(Ts)
     
-    if output(n-1)>threshold
+    if output(n)>threshold
         osuObjCr(counter).timing= Ts(n);
         osuObjCr(counter).type = 'circle';
         osuObjCr(counter).x = round(250+200*cos(Ts(n)/500));
