@@ -17,11 +17,11 @@
 
 
 dir=...
-    '/Users/dongqihan/Documents/MATLAB/OSU/FrOstNovaV1.00/osufiles/';
+    '/Users/dongqihan/Documents/MATLAB/OSU/FrOstNovaV2.0/osufiles/';
 osufilename=[dir,...
-    'SakiZ - osu!memories (DeRandom Otaku) [Happy Memories].osu'];
+    'Daisuke Achiwa - BASARA (100pa-) [BASARA].osu'];
 songfile=[dir,...
-    'audio.mp3'];
+    'BASARA.mp3'];
 
 % 
 % dir=...
@@ -42,10 +42,10 @@ songfile=[dir,...
 s=osuFileRead(osufilename);
 Ts=getRhythmPoints(s);
 osuObj=osuObjectParser(s);
-osuDataInput = getOsuDataInput(Ts,songfile);
-osuDataTarget = getOsuDataTarget(Ts,osuObj);
+osuDataInput = getOsuDataInput(s,songfile);
+osuDataTarget = getOsuDataTarget(s);
 
-target=osuDataTarget.isCircle+osuDataTarget.isSliderHead+osuDataTarget.isSliderEnd;
+targrt=osuDataTarget;
 input=osuDataInput.input;
 [input1,target1]=regularizeDataInputTarget(input,target);
 

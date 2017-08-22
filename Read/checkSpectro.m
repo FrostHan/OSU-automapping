@@ -21,7 +21,8 @@ for n=idxs
     tq(N_t+1:2*N_t+1)=linspace(Ts(n),Ts(min(n+P,length(Ts))),N_t+1);
     [TQ,FQ]=meshgrid(tq,f);
     contourf(TQ,FQ,squeeze(osuDataInput(n,:,:)),'linestyle','none')
-   
+%     pcolor(TQ,FQ,squeeze(osuDataInput(n,:,:)))
+    
     hold on
     
     subplot(3,1,3)
@@ -41,7 +42,7 @@ for n=idxs
         end
     end
     
-    xlim([0.9,9.1])
+    xlim([1,9])
     ylim([0,1])
 end
 
