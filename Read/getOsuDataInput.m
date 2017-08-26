@@ -1,4 +1,4 @@
-function [osuDataInput,TS,FQ] = getOsuDataInput(s,songfile)
+function [osuDataInput,TS,TQ,FQ] = getOsuDataInput(s,songfile)
 
 % This function is for generating the inputs to the neural network, as a
 % formatized data of the songfile.
@@ -16,9 +16,9 @@ function [osuDataInput,TS,FQ] = getOsuDataInput(s,songfile)
 % By Dongqi Han, OIST
 
 t_reso = 15; % temporal resolution estimation(in milisecond) 
-N_t = 90; % divide 
+N_t = 128; % divide 
 P = 4;
-fq=linspace(0,10000,201); %range of frequency
+fq=linspace(0,10000,128); %range of frequency
 
 %----------- read data -------------
 [data0,fs]=audioread(songfile);
@@ -47,7 +47,7 @@ S=(S1+S2)/2;
 Ts=getRhythmPoints(s);
 
 
-osuDataInput=zeros(length(Ts),length(fq),2*N_t+1); %Input Tensor
+osuDataInput=zeros(length(Ts),length(fq),N_t); %Input Tensor
 
 
 
@@ -67,8 +67,7 @@ osuDataInput=zeros(length(Ts),length(fq),2*N_t+1); %Input Tensor
 [T,F]=meshgrid(t,f);
 
 for n=1:length(Ts)
-    tq(1:N_t+1)=linspace(Ts(max(n-P,1)),Ts(n),N_t+1);
-    tq(N_t+1:2*N_t+1)=linspace(Ts(n),Ts(min(n+P,length(Ts))),N_t+1);
+    tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,length(Ts))),N_t);
 
     [TQ,FQ]=meshgrid(tq,fq);
     

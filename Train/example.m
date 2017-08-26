@@ -45,43 +45,45 @@ osuObj=osuObjectParser(s);
 osuDataInput = getOsuDataInput(s,songfile);
 osuDataTarget = getOsuDataTarget(s);
 
-targrt=osuDataTarget;
-input=osuDataInput.input;
+target=osuDataTarget;
+input=osuDataInput;
 [input1,target1]=regularizeDataInputTarget(input,target);
 
-clear NET
-clear TR
-M=3;
-for i=1:M
-    net=osunet2([33,33,1]);
-    [net,tr]=train(net,input1,target1);
-    NET{i}=net;
-    TR{i}=tr;
-end
 
-pf=zeros(M,1);
-for i = 1:M
-    pf(i)=TR{i}.best_tperf;
-end
-   
-[~,ind]=min(pf);
-net=NET{ind};
-
-Y=net(input1);
-figure
-plot(Y(180:190),'r');
-hold on
-plot(target1(180:190),'b');
-
-figure
-plot(round(Y(80:95)),'r');
-hold on
-plot(target1(80:95),'b');
-
-figure
-hist(round(Y)-target1)
-
-osuObjCr=FrostnovaMap(s,input,net,dir,0.5);
-
-
-
+% 
+% clear NET
+% clear TR
+% M=3;
+% for i=1:M
+%     net=osunet2([33,33,1]);
+%     [net,tr]=train(net,input1,target1);
+%     NET{i}=net;
+%     TR{i}=tr;
+% end
+% 
+% pf=zeros(M,1);
+% for i = 1:M
+%     pf(i)=TR{i}.best_tperf;
+% end
+%    
+% [~,ind]=min(pf);
+% net=NET{ind};
+% 
+% Y=net(input1);
+% figure
+% plot(Y(180:190),'r');
+% hold on
+% plot(target1(180:190),'b');
+% 
+% figure
+% plot(round(Y(80:95)),'r');
+% hold on
+% plot(target1(80:95),'b');
+% 
+% figure
+% hist(round(Y)-target1)
+% 
+% osuObjCr=FrostnovaMap(s,input,net,dir,0.5);
+% 
+% 
+% 

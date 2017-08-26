@@ -61,15 +61,17 @@ for z=z0:length(osuObj)
         osuDataTiming(n)=osuObj(z).timing;
     end
     
-    for i = 1:length(Ts)
-        if sum(osuDataTarget(i,1:3),2)==0
-            osuDataTarget(i,4)=1;
-        end
-    end
+    
 
     n=n+1;
     
     
+end
+
+for i = 1:length(Ts)
+    if sum(osuDataTarget(i,1:3),2)==0
+        osuDataTarget(i,4)=1;
+    end
 end
 
 end
