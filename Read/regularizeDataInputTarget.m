@@ -12,7 +12,7 @@ if (length(idx0)>length(idx1))
     idxdelete=idx0(randperm(length(idx0),length(idx0)-length(idx1)));
 
 
-    input(idxdelete,:)=[];
+    input(idxdelete,:,:)=[];
     target(idxdelete,:)=[];
     
 end
