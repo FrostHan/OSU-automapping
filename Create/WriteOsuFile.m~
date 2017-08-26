@@ -4,10 +4,10 @@ function WriteOsuFile(s,osuObjCr,dir,diffname)
 % ------------------
 % By Dongqi Han, OIST
 
-[Ts,InheritedTimings]=getRhythmPoints(s);
+Ts=getRhythmPoints(s);
 
 filename=[s.Metadata.Artist,' - ',s.Metadata.Title,' (',s.Metadata.Creator,')'];
-SliderMultiplier=1.9;
+SliderMultiplier=0.18;
 % timedistance=(60/(BPM*BeatDivisor))*1000;
 AR=9;
 OD=7;
@@ -78,7 +78,7 @@ fprintf(osufp,'%s\r\n\r\n','[Events]');
 % ------Timing points--------
 fprintf(osufp,'%s\r\n','[TimingPoints]');
 for i=1:length(s.TimingPoints)
-    fprintf(osufp,'%s\r\n',s.TimingPoints{i});
+    fprintf(osufp,'%s\r\n\',s.TimingPoints{i});
 end
 fprintf(osufp,'\r\n');
 
@@ -94,10 +94,9 @@ for k = 1:length(osuObjCr)
         
     elseif  strcmp(osuObjCr(k).type,'slider' )
         
-        %calculate sliderlength
         [~,idxtmp]=min(abs(osuObjCr(k).timing-Ts));
-        sliderlength=10000/InheritedTimings(idxtmp)*osuObjCr(k).length/str2double(s.Editor.BeatDivisor)*SliderMultiplier;
-        
+        timedistance=Ts(idxtmp+1)-Ts(idxtmp);
+        sliderlength=osuObjCr(k).interval/(s.Editor.BeatDivisor*timedistance)*10000*SliderMultiplier;
         fprintf(osufp,['%d,%d,',int2str(osuObjCr(k).timing),',2,0,L|%d:%d,1,%f\r\n'],osuObjCr(k).x,round(osuObjCr(k).y),round(osuObjCr(k).x+sliderlength),round(osuObjCr(k).y),sliderlength);
 
     end

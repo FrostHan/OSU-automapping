@@ -30,21 +30,21 @@ lengthof1pai_next=tmptp{2};
 isend=0;
 
 
-tmptp1=textscan(s.TimingPoints{q},'%f,%f,%f');
+tmptp1=textscan(s.TimingPoints{j},'%f,%f,%f');
 
 
 while 1
     
     while q<=length(s.TimingPoints)
 
-        tmptp1=textscan(s.TimingPoints{q},'%f,%f,%f');
+        tmptp=textscan(s.TimingPoints{q},'%f,%f,%f');
         
-        if q<=length(s.TimingPoints)&&tmptp1{1}<Ts(z)
-            if tmptp1{2}>=0
-                BPMnow=60000/tmptp1{2};
+        if q<=length(s.TimingPoints)&&tmptp{1}<Ts(z)
+            if tmptp{2}>=0
+                BPMnow=60000/tmptp{2};
             else
-                InheritedTiming=abs(tmptp1{2});
-                beats=tmptp1{3};
+                InheritedTiming=abs(tmptp{2});
+                beats=tmptp{3};
             end
             q=q+1;
         else
