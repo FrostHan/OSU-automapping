@@ -35,11 +35,12 @@ for n=1:N
         osuObjCr(counter).y = round(200+150*sin(Ts(n)/500));
         osuObjCr(counter).interval = Ts(n+n_itv)-Ts(n);
         osuObjCr(counter).length = n_itv;
+        type(n+n_itv)=3; %assign a slider end
         osuObjCr(counter).turns = 1;
         counter=counter+1;
         
-    elseif type==4 %slider end
-        break;
+    elseif type(n)==4||3 %empty or slider end
+        
         
     else %circle
         osuObjCr(counter).timing= Ts(n);
@@ -51,7 +52,7 @@ for n=1:N
     
 end
 
-diffname='FrOstNovA';
+diffname='FrOstNovA2';
 WriteOsuFile(s,osuObjCr,dir,diffname)
 
 end
