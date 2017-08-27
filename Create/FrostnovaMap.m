@@ -19,7 +19,7 @@ N=length(Ts);
 
 for n=1:N
     
-    [tf,n_itv]=judgeslider(type,n)
+    [tf,n_itv]=judgeslider(type,n);
     
     if type(n)==1 %circle
         osuObjCr(counter).timing= Ts(n);

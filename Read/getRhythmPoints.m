@@ -27,6 +27,7 @@ InheritedTiming=100;
 t=Ts(1);
 tmptp=textscan(s.TimingPoints{j},'%f,%f,%f');
 lengthof1pai_next=tmptp{2};
+lengthof1pai=lengthof1pai_next;
 isend=0;
 
 
@@ -50,15 +51,15 @@ while 1
         else
             break
         end
-
         
+       
     end
     
     
     if Ts(z)>=tmptp{1} && ~isend  
         lengthof1pai=lengthof1pai_next;
         t=tmptp{1}+(lengthof1pai/beatDivisor);
-        if j<length(s.TimingPoints)
+        if j<=length(s.TimingPoints)
             while 1
                 j=j+1;
                 if j>length(s.TimingPoints)
@@ -75,7 +76,9 @@ while 1
         end
     end
     
-
+    
+    
+    
     t=t+(lengthof1pai/beatDivisor);
     
     
