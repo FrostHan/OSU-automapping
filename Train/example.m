@@ -24,21 +24,21 @@
 %     'BASARA.mp3'];
 
 % 
-
-dir=...
-    '/Users/dongqihan/Downloads/opsu/Songs/155118 Drop - Granat/';
-osufilename=[dir,...
-    'Drop - Granat (Lan wings) [Extra].osu'];
-songfile=[dir,...
-    '7.VII. Granat.mp3'];
-% % 
-% dir=...
-%     'E:\Program Files (x86)\osu!\Songs\13019 Daisuke Achiwa - BASARA\';
 % 
+% dir=...
+%     '/Users/dongqihan/Downloads/opsu/Songs/155118 Drop - Granat/';
 % osufilename=[dir,...
-%     'Daisuke Achiwa - BASARA (100pa-) [BASARA].osu'];
+%     'Drop - Granat (Lan wings) [Extra].osu'];
 % songfile=[dir,...
-%     'BASARA.mp3'];
+%     '7.VII. Granat.mp3'];
+% % % 
+dir=...
+    'C:\Users\hdqhd\AppData\Local\osu!\Songs\13019 Daisuke Achiwa - BASARA\';
+
+osufilename=[dir,...
+    'Daisuke Achiwa - BASARA (100pa-) [BASARA].osu'];
+songfile=[dir,...
+    'BASARA.mp3'];
 
 s=osuFileRead(osufilename);
 Ts=getRhythmPoints(s);

@@ -1,4 +1,4 @@
-function [osuDataInput,TS,TQ,FQ] = getOsuDataInput(s,songfile)
+function [input,TS,TQ,FQ] = getOsuDataInput(s,songfile)
 
 % This function is for generating the inputs to the neural network, as a
 % formatized data of the songfile.
@@ -47,7 +47,7 @@ S=(S1+S2)/2;
 Ts=getRhythmPoints(s);
 
 
-osuDataInput=zeros(length(Ts),length(fq),N_t); %Input Tensor
+osuDataInput=zeros(length(Ts),length(fq),N_t,'gpuArray'); %Input Tensor
 
 
 
@@ -66,17 +66,24 @@ osuDataInput=zeros(length(Ts),length(fq),N_t); %Input Tensor
 [TS,~]=meshgrid(Ts,f);
 [T,F]=meshgrid(t,f);
 
+Sg=gpuArray(S);
+Tg=gpuArray(T);
+Fg=gpuArray(F);
+
 for n=1:length(Ts)
     tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,length(Ts))),N_t);
 
     [TQ,FQ]=meshgrid(tq,fq);
+    TQg=gpuArray(TQ);
+    FQg=gpuArray(FQ);
     
-    osuDataInput(n,:,:)=interp2(T,F,S,TQ,FQ);
+    osuDataInput(n,:,:)=interp2(Tg,Fg,Sg,TQg,FQg);
     osuDataInput(n,:,:)=osuDataInput(n,:,:)/max(max(osuDataInput(n,:,:)));
     if mod(n,100)==1
         n
     end
 end
 
+input=gather(osuDataInput);
 
 end

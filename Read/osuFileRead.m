@@ -31,11 +31,11 @@ outOsuFileName='out2.txt';
 outfg=fopen(outOsuFileName,'w');
 fprintf(outfg,'%s',str);
 try
-    s=jsondecode(str);
+    s=loadjson(str);
 catch err
     
    str=regexprep(str,'],(\r\n)*"HitObjects":','},\r\n\r\n"HitObjects":');
-   s=jsondecode(str);   
+   s=loadjson(str);   
 end
 s.Version=version;
 fclose(fg);
