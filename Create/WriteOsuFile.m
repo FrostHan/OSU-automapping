@@ -4,9 +4,10 @@ function WriteOsuFile(s,osuObjCr,dir,diffname)
 % ------------------
 % By Dongqi Han, OIST
 
+[Ts,InheritedTimings]=getRhythmPoints(s);
 
 filename=[s.Metadata.Artist,' - ',s.Metadata.Title,' (',s.Metadata.Creator,')'];
-SliderMultiplier=0.18;
+SliderMultiplier=1.5;
 % timedistance=(60/(BPM*BeatDivisor))*1000;
 AR=9;
 OD=7;
@@ -77,7 +78,7 @@ fprintf(osufp,'%s\r\n\r\n','[Events]');
 % ------Timing points--------
 fprintf(osufp,'%s\r\n','[TimingPoints]');
 for i=1:length(s.TimingPoints)
-    fprintf(osufp,'%s\r\n\r\n',s.TimingPoints{i});
+    fprintf(osufp,'%s\r\n',s.TimingPoints{i});
 end
 fprintf(osufp,'\r\n');
 
@@ -87,15 +88,26 @@ fprintf(osufp,'%s\r\n','[HitObjects]');
 
 for k = 1:length(osuObjCr)
 
-     if strcmp(osuObjCr(k).type,'circle') || strcmp(osuObjCr(k).type,'slider' )
+    if strcmp(osuObjCr(k).type,'circle') 
 
         fprintf(osufp,['%d,%d,',int2str(osuObjCr(k).timing),',1,0,0:0:0:0:\r\n'],osuObjCr(k).x,osuObjCr(k).y);
+        
+    elseif  strcmp(osuObjCr(k).type,'slider' )
+        
+        %calculate sliderlength
+        [~,idxtmp]=min(abs(osuObjCr(k).timing-Ts));
+        sliderlength=10000/InheritedTimings(idxtmp)*osuObjCr(k).length/str2double(s.Editor.BeatDivisor)*SliderMultiplier;
+        
+        fprintf(osufp,['%d,%d,',int2str(osuObjCr(k).timing),',2,0,L|%d:%d,%d,%f\r\n'],osuObjCr(k).x,round(osuObjCr(k).y),round(osuObjCr(k).x+sliderlength),round(osuObjCr(k).y),osuObjCr(k).turns,sliderlength);
 
-     end
+    end
 
 end
 
+
 fclose(osufp);
+
+
 % catch
 %     fclose(osufp);
 % end
