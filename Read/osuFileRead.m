@@ -27,9 +27,9 @@ str=regexprep(str,'},(\r\n)*"Colours":{','],\r\n\r\n"Colours":{');
 str=regexprep(str,'},(\r\n)*"HitObjects":{','],\r\n\r\n"HitObjects":[');
 str=regexprep(str,',\r\n"$',']');
 str=strcat('{',str,'}');
-outOsuFileName='out2.txt';
-outfg=fopen(outOsuFileName,'w');
-fprintf(outfg,'%s',str);
+% outOsuFileName='out2.txt';
+% outfg=fopen(outOsuFileName,'w');
+% fprintf(outfg,'%s',str);
 try
     s=loadjson(str);
 catch err
@@ -39,6 +39,6 @@ catch err
 end
 s.Version=version;
 fclose(fg);
-fclose(outfg);
+% fclose(outfg);
 
 end
