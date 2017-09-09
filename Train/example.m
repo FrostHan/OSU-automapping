@@ -116,13 +116,13 @@
 %
 
 osuSongDir=...
-    'C:\Users\hdqhd\AppData\Local\osu!\Songs\';
+    'D:\Program Files (x86)\osu!\Songs\';
 
 songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[100000,154171];
+beatmapSetRange=[45000,554171];
 
 for osuFolderIdx=3:length(songList)
     

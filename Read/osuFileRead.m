@@ -31,11 +31,11 @@ str=strcat('{',str,'}');
 % outfg=fopen(outOsuFileName,'w');
 % fprintf(outfg,'%s',str);
 try
-    s=loadjson(str);
+    s=jsondecode(str);
 catch err
     
    str=regexprep(str,'],(\r\n)*"HitObjects":','},\r\n\r\n"HitObjects":');
-   s=loadjson(str);   
+   s=jsondecode(str);   
 end
 s.Version=version;
 fclose(fg);
