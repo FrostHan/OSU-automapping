@@ -1,4 +1,4 @@
-function WriteOsuFile(s,osuObjCr,dir,diffname)
+function WriteOsuFile(s,osuObjCr,osuFolder,diffname)
 
 % Write a .osu file
 % ------------------
@@ -14,7 +14,7 @@ OD=7;
 CS=4;
 HP=6;
 
-osufp=fopen([dir,filename,' [',diffname,'].osu'],'w');
+osufp=fopen([osuFolder,filename,' [',diffname,'].osu'],'w');
 
 % try 
 
@@ -59,9 +59,12 @@ fprintf(osufp,'%s\r\n',['Creator: ',s.Metadata.Creator]);
 fprintf(osufp,'%s\r\n',['Version: ',num2str(diffname)]);
 fprintf(osufp,'%s\r\n',['Source: ',s.Metadata.Source]);
 fprintf(osufp,'%s\r\n',['Tags: ',s.Metadata.Tags]);
-fprintf(osufp,'%s\r\n','BeatmapID:-1');
-fprintf(osufp,'%s\r\n\r\n','BeatmapSetID:-1');
-
+if exist('s.Metadata.BeatmapID','var')
+    fprintf(osufp,'%s\r\n',['BeatmapID: -1',]);
+end
+if exist('s.Metadata.BeatmapSetID','var')
+    fprintf(osufp,'%s\r\n\r\n',['BeatmapSetID:-1',s.Metadata.BeatmapID]);
+end
 
 % ------Difficulty-------
 fprintf(osufp,'%s\r\n','[Difficulty]');

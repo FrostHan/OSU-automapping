@@ -1,4 +1,4 @@
-function osuObjCr=FrostnovaMap(s,y,dir,threshold)
+function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold)
 
 % This is the function to create a beatmap (mapping) by the trained network
 % and input data
@@ -53,7 +53,7 @@ for n=1:N
 end
 
 diffname='FrOstNovA2';
-WriteOsuFile(s,osuObjCr,dir,diffname)
+WriteOsuFile(s,osuObjCr,osuFolder,diffname)
 
 end
 
