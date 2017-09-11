@@ -55,9 +55,9 @@ songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[10000,17417];
+beatmapSetRange=[600000,615717];
 
-for osuFolderIdx=3:length(songList)
+for osuFolderIdx=8000:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder
@@ -93,6 +93,7 @@ for osuFolderIdx=3:length(songList)
         tempSaveIdx=-1;
         for i=1:length(osuFileListStruct)
             if osuFileListStruct(i).bytes>tempSaveBytes
+                tempSaveBytes=osuFileListStruct(i).bytes;%这行你没加
                 tempSaveIdx=i;
             end
         end
@@ -103,8 +104,12 @@ for osuFolderIdx=3:length(songList)
     osufilename=strcat(osuFolder,osuFileListStruct(tempSaveIdx).name);
     try
         s=osuFileRead(osufilename);
-    catch
+    catch ME
+        ME
+        disp(osuFolder)
         disp(strcat(osuFileListStruct(tempSaveIdx).name,' cannot be processed'));
+        fclose all;
+        
     end
     try
         BeatmapSetID=str2double(s.Metadata.BeatmapSetID);        
@@ -151,6 +156,7 @@ for osuFolderIdx=3:length(songList)
         input=osuDataInput;
         [input1,target1]=regularizeDataInputTarget(input,target);        
         save(saveMatName,'s','Ts','input','input1','target1','osuFolder');
+        disp('sucess!')
     catch
         
         disp('Process Abort!!')

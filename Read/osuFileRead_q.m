@@ -30,14 +30,12 @@ str=strcat('{',str,'}');
 outOsuFileName='out2.txt';
 outfg=fopen(outOsuFileName,'w');
 fprintf(outfg,'%s',str);
-
-str=strrep(str,'"Tags":"",','"Tags":""},');
 try
     s=jsondecode(str);
-catch ME
-    str=regexprep(str,'],(\r\n)*"HitObjects":','},\r\n\r\n"HitObjects":');
-    s=jsondecode(str);   
-
+catch err
+    
+   str=regexprep(str,'],(\r\n)*"HitObjects":','},\r\n\r\n"HitObjects":');
+   s=jsondecode(str);   
 end
 s.Version=version;
 fclose(fg);

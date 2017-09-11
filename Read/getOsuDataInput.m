@@ -79,9 +79,9 @@ for n=1:length(Ts)
     
     osuDataInput(n,:,:)=interp2(Tg,Fg,Sg,TQg,FQg);
     osuDataInput(n,:,:)=osuDataInput(n,:,:)/max(max(osuDataInput(n,:,:)));
-    if mod(n,500)==1
-        n
-    end
+%     if mod(n,500)==1
+%         n
+%     end
 end
 
 input=gather(osuDataInput);
