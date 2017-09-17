@@ -1,53 +1,4 @@
 
-% s=osuFileRead(osufilename);
-% Ts=getRhythmPoints(s);
-% osuObj=osuObjectParser(s);
-% osuDataInput = getOsuDataInput(s,songfile);
-% osuDataTarget = getOsuDataTarget(s);
-% 
-% target=osuDataTarget;
-% input=osuDataInput;
-% [input1,target1]=regularizeDataInputTarget(input,target);
-% 
-
-% 
-% clear NET
-% clear TR
-% M=3;
-% for i=1:M
-%     net=osunet2([33,33,1]);
-%     [net,tr]=train(net,input1,target1);
-%     NET{i}=net;
-%     TR{i}=tr;
-% end
-% 
-% pf=zeros(M,1);
-% for i = 1:M
-%     pf(i)=TR{i}.best_tperf;
-% end
-%    
-% [~,ind]=min(pf);
-% net=NET{ind};
-% 
-% Y=net(input1);
-% figure
-% plot(Y(180:190),'r');
-% hold on
-% plot(target1(180:190),'b');
-% 
-% figure
-% plot(round(Y(80:95)),'r');
-% hold on
-% plot(target1(80:95),'b');
-% 
-% figure
-% hist(round(Y)-target1)
-% 
-% osuObjCr=FrostnovaMap(s,input,net,dir,0.5);
-% 
-% 
-% Skip to content
-
 
 osuSongDir='D:\Program Files (x86)\osu!\Songs\';
 
@@ -55,9 +6,10 @@ songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[430000,445717];
+% beatmapSetRange=[430000,445717];
+mapper='Fycho';
 
-for osuFolderIdx=4000:length(songList)
+for osuFolderIdx=3000:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder
@@ -122,10 +74,12 @@ for osuFolderIdx=4000:length(songList)
             continue
         end
     end
+    
+    %----------------------------------------
+    %-------------selecting------------------
+    %----------------------------------------
     try
-        if BeatmapSetID==-1
-            continue
-        elseif BeatmapSetID<beatmapSetRange(1) || BeatmapSetID>beatmapSetRange(2)
+        if ~strcmp(s.Metadata.Creator,mapper)
             continue
         end
     catch

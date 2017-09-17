@@ -13,22 +13,29 @@ function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold)
 
 Ts=getRhythmPoints(s);
 
-counter=1;
-[~,type]=max(y,[],2);
 N=length(Ts);
+
+if size(y,1)<N
+    y=[y;zeros(N-size(y,1),4)];
+end
+
+[~,type]=max(y(:,1:3),[],2);
+
+counter=1;
+
 
 for n=1:N
     
     [tf,n_itv]=judgeslider(type,n);
     
-    if type(n)==1 %circle
+    if type(n)==1&&y(n,1)>threshold %circle
         osuObjCr(counter).timing= Ts(n);
         osuObjCr(counter).type = 'circle';
         osuObjCr(counter).x = round(250+200*cos(Ts(n)/500));
         osuObjCr(counter).y = round(200+150*sin(Ts(n)/500));
         counter=counter+1;
         
-    elseif tf  %slider 
+    elseif tf&&y(n,2)>threshold  %slider 
         osuObjCr(counter).timing= Ts(n);
         osuObjCr(counter).type = 'slider';
         osuObjCr(counter).x = round(250+200*cos(Ts(n)/500));
@@ -53,7 +60,11 @@ for n=1:N
 end
 
 diffname='FrOstNovA2';
-WriteOsuFile(s,osuObjCr,osuFolder,diffname)
+try
+    WriteOsuFile(s,osuObjCr,osuFolder,diffname)
+catch ME
+    disp(ME);
+end
 
 end
 
