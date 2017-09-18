@@ -9,7 +9,7 @@ savefolder='D:\OSU\SongMat\';
 % beatmapSetRange=[430000,445717];
 mapper='Fycho';
 
-for osuFolderIdx=3000:length(songList)
+for osuFolderIdx=3000:      length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder
