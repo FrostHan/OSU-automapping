@@ -23,6 +23,22 @@ end
 
 counter=1;
 
+%--------trace by chaotic equations--------
+
+% DT1=400;
+% DT2=10;
+% 
+% t_max=max(Ts);
+% xC=henon(round(t_max/DT1)+1);
+% xC=mapminmax(xC',20,480);
+% yC=mackeyglass(round(t_max/DT2)+1);
+% yC=mapminmax(yC',20,350);
+% 
+% figure
+% plot(DT1:DT1:length(xC)*DT1,xC)
+% hold on
+% plot(DT2:DT2:length(yC)*DT2,yC)
+% xlim([1000,3000])
 
 for n=1:N
     
@@ -31,15 +47,22 @@ for n=1:N
     if type(n)==1&&y(n,1)>threshold %circle
         osuObjCr(counter).timing= Ts(n);
         osuObjCr(counter).type = 'circle';
-        osuObjCr(counter).x = round(250+200*cos(Ts(n)/500));
-        osuObjCr(counter).y = round(200+150*sin(Ts(n)/500));
+        osuObjCr(counter).x = round(250+200*cos(Ts(n)/400));
+        osuObjCr(counter).y = round(200+150*sin(Ts(n)/400));
+
+%         osuObjCr(counter).x = round(xC(round(Ts(n)/DT1)+1));
+%         osuObjCr(counter).y = round(yC(round(Ts(n)/DT2)+1));
         counter=counter+1;
         
     elseif tf&&y(n,2)>threshold  %slider 
         osuObjCr(counter).timing= Ts(n);
         osuObjCr(counter).type = 'slider';
-        osuObjCr(counter).x = round(250+200*cos(Ts(n)/500));
-        osuObjCr(counter).y = round(200+150*sin(Ts(n)/500));
+        osuObjCr(counter).x = round(250+200*cos(Ts(n)/400));
+        osuObjCr(counter).y = round(200+150*sin(Ts(n)/400));
+
+%         osuObjCr(counter).x = round(xC(round(Ts(n)/DT1)+1));
+%         osuObjCr(counter).y = round(yC(round(Ts(n)/DT2)+1));
+        
         osuObjCr(counter).interval = Ts(n+n_itv)-Ts(n);
         osuObjCr(counter).length = n_itv;
         type(n+n_itv)=3; %assign a slider end
@@ -52,8 +75,12 @@ for n=1:N
     else %circle
         osuObjCr(counter).timing= Ts(n);
         osuObjCr(counter).type = 'circle';
-        osuObjCr(counter).x = round(250+200*cos(Ts(n)/500));
-        osuObjCr(counter).y = round(200+150*sin(Ts(n)/500));
+        osuObjCr(counter).x = round(250+200*cos(Ts(n)/400));
+        osuObjCr(counter).y = round(200+150*sin(Ts(n)/400));
+
+%         osuObjCr(counter).x = round(xC(round(Ts(n)/DT1)+1));
+%         osuObjCr(counter).y = round(yC(round(Ts(n)/DT2)+1));
+        
         counter=counter+1;
     end
     
@@ -79,7 +106,7 @@ if n>N||type(n)~=2
     tf=0;
 else
     k=n+1;
-    while k<N||type(k)~=3
+    while k<N && type(k)~=3
         if type(k)==1||type(k)==2
             tf=0;
             break;
@@ -96,3 +123,23 @@ if tf==1
 end
 
 end
+
+% function x=ouProcess(t_max)
+% 
+% th = 1/500;
+% mu = 250;
+% sig = 10;
+% 
+% dt = 1;
+% t = 0:t_max  ;        % Time vector
+% x = zeros(1,length(t)); % Allocate output vector, set initial condition
+% rng('shuffle');                 % Set random seed
+% for i = 1:length(t)-1
+%     x(i+1) = x(i)+th*(mu-x(i))*dt+sig*sqrt(dt)*randn;
+% end
+% 
+% x = mapminmax(x,0,450);
+% % figure;
+% % plot(t,x);
+% 
+% end
