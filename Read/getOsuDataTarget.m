@@ -58,7 +58,7 @@ for z=z0:length(osuObj)
             otherwise
                 
         end
-        osuDataTiming(n)=osuObj(z).timing;
+        osuDataTiming(n)=osuObj(z).timing; %%here without considering AudioLeadIn!!!
     end
     
     

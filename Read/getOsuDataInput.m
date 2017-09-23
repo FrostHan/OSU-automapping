@@ -63,7 +63,7 @@ osuDataInput=zeros(length(Ts),length(fq),N_t,'gpuArray'); %Input Tensor
 % end
 
 
-[TS,~]=meshgrid(Ts,f);
+[TS,~]=meshgrid(Ts,f); 
 [T,F]=meshgrid(t,f);
 
 Sg=gpuArray(S);
@@ -71,8 +71,8 @@ Tg=gpuArray(T);
 Fg=gpuArray(F);
 
 for n=1:length(Ts)
-    tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,length(Ts))),N_t);
-
+    tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,length(Ts))),N_t); 
+%     disp(floor(tq(64)))
     [TQ,FQ]=meshgrid(tq,fq);
     TQg=gpuArray(TQ);
     FQg=gpuArray(FQ);

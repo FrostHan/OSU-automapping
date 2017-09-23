@@ -14,7 +14,7 @@ OD=7;
 CS=4;
 HP=6;
 
-osufp=fopen([osuFolder,filename,' [',diffname,'].osu'],'w');
+osufp=fopen([osuFolder,filename,' [',diffname,'].osu'],'w','n','UTF-8');
 
 % try 
 
@@ -47,23 +47,23 @@ fprintf(osufp,'%s\r\n\r\n','TimelineZoom: 1');
 fprintf(osufp,'%s\r\n','[Metadata]');
 fprintf(osufp,'%s','Title:');
 fprintf(osufp,'%s\r\n',s.Metadata.Title);
-if exist('s.Metadata.ArtistUnicode','var')
+if isfield(s.Metadata,'TitleUnicode')
     fprintf(osufp,'%s','TitleUnicode: ');
     fprintf(osufp,'%s\r\n',s.Metadata.TitleUnicode);
 end
 fprintf(osufp,'%s\r\n',['Artist: ',s.Metadata.Artist]);
-if exist('s.Metadata.ArtistUnicode','var')
+if isfield(s.Metadata,'ArtistUnicode')
     fprintf(osufp,'%s\r\n',['ArtistUnicode: ',s.Metadata.ArtistUnicode]);
 end
 fprintf(osufp,'%s\r\n',['Creator: ',s.Metadata.Creator]);
 fprintf(osufp,'%s\r\n',['Version: ',num2str(diffname)]);
 fprintf(osufp,'%s\r\n',['Source: ',s.Metadata.Source]);
 fprintf(osufp,'%s\r\n',['Tags: ',s.Metadata.Tags]);
-if exist('s.Metadata.BeatmapID','var')
-    fprintf(osufp,'%s\r\n',['BeatmapID: -1',]);
-end
-if exist('s.Metadata.BeatmapSetID','var')
-    fprintf(osufp,'%s\r\n\r\n',['BeatmapSetID:-1',s.Metadata.BeatmapID]);
+if isfield(s.Metadata,'BeatmapID') && isfield(s.Metadata,'BeatmapSetID')
+    fprintf(osufp,'%s\r\n','BeatmapID: -1');
+    fprintf(osufp,'%s\r\n\r\n',['BeatmapSetID:',s.Metadata.BeatmapID]);
+else
+    fprintf(osufp,'\n\r\');
 end
 
 % ------Difficulty-------

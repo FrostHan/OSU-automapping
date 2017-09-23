@@ -1,16 +1,14 @@
-function [s,str]=osuFileRead(osufilename)
+function s=osuFileRead(osufilename)
 
 
-fg=fopen(osufilename,'r','n','UTF-8');
+fg=fopen(osufilename,'r');
 version=fgetl(fg);
 version=regexp(version,'\d+','match');
 version=version{1};
 version=str2double(version);
 str=fscanf(fg,'%c');
 
-
-str = strrep(str, '\', '');
-
+modifiedStr = strrep(origStr, oldSubstr, newSubstr)
 str=regexprep(str,'[ ]*:[ ]*',':');
 str=regexprep(str,'"','');
 str=regexprep(str,'//[\S ]*\r\n','');
@@ -31,28 +29,17 @@ str=regexprep(str,'},(\r\n)*"Colours":{','],\r\n\r\n"Colours":{');
 str=regexprep(str,'},(\r\n)*"HitObjects":{','],\r\n\r\n"HitObjects":[');
 str=regexprep(str,',\r\n"$',']');
 str=strcat('{',str,'}');
-
-
-str=strrep(str,'"Tags":"",','"Tags":""},');
-
 outOsuFileName='out2.txt';
 outfg=fopen(outOsuFileName,'w');
 fprintf(outfg,'%s',str);
 
+str=strrep(str,'"Tags":"",','"Tags":""},');
 try
     s=jsondecode(str);
 catch ME
-    try
-        
-        str=regexprep(str,'],(\r\n)*"HitObjects":','},\r\n\r\n"HitObjects":');
-        s=jsondecode(str);
-        
-    catch ME
-    
-        str=regexprep(str,'(?<=:\S+):','');
-        s=jsondecode(str);   
-        
-    end
+    str=regexprep(str,'],(\r\n)*"HitObjects":','},\r\n\r\n"HitObjects":');
+    s=jsondecode(str);   
+
 end
 s.Version=version;
 fclose(fg);
