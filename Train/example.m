@@ -55,9 +55,9 @@ songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[340000,362717];
+beatmapSetRange=[520000,542717];
 
-for osuFolderIdx=5000:length(songList)
+for osuFolderIdx=8000:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder

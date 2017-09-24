@@ -1,7 +1,8 @@
-function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold)
+function osuObjCr=FrostnovaMap2(s,y,osuFolder,threshold)
 
 % This is the function to create a beatmap (mapping) by the trained network
 % and input data
+% Version 2, try to place the notes well
 % ----------------Input----------------
 % s: osu structure
 % y: result from tensorflow
@@ -11,7 +12,9 @@ function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold)
 %
 % osuObj created by the inputs
 
-diffname='FrOstNovA22';
+
+
+diffname='FrOstNovA2';
 
 Ts=getRhythmPoints(s);
 
@@ -87,7 +90,6 @@ for n=1:N
     end
     
 end
-
 
 try
     WriteOsuFile(s,osuObjCr,osuFolder,diffname)

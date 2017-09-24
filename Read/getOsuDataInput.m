@@ -15,7 +15,7 @@ function [input,TS,TQ,FQ] = getOsuDataInput(s,songfile)
 % -----------------------
 % By Dongqi Han, OIST
 
-t_reso = 15; % temporal resolution estimation(in milisecond) 
+t_reso = 10; % temporal resolution estimation(in milisecond) 
 N_t = 128; % divide 
 P = 4;
 fq=linspace(0,10000,128); %range of frequency
@@ -35,7 +35,7 @@ S1 = S1 / max(max(S1)); %normalize
 
 [S2,f,t]=spectrogram(data2,window,[],Nfft,fs);
 t=t*1000; %convert to ms
-t=t-t_reso;%modify
+
 
 S2 = log(1+abs(S2));
 S2 = S2 / max(max(S2)); %normalize
