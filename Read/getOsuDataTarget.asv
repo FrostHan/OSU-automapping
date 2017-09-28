@@ -15,7 +15,7 @@ function [osuDataTarget,osuDataTiming] = getOsuDataTarget(s)
 % -----------------------
 % By Dongqi Han, OIST
 
-Ts=getRhythmPoints(s);
+Ts=ge0tRhythmPoints(s);
 osuObj=osuObjectParser(s);
 
 osuDataTarget=zeros(length(Ts),4);

@@ -55,9 +55,9 @@ songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[520000,542717];
+beatmapSetRange=[300000,442717];
 
-for osuFolderIdx=8000:length(songList)
+for osuFolderIdx=4500:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder
@@ -144,6 +144,7 @@ for osuFolderIdx=8000:length(songList)
         disp(['Operating osufile: ',osuFolderStruct.name, '. Progress: ',num2str(osuFolderIdx-2),...
             ' of ',num2str(length(songList)-2)])
         % songfilename and directory is get at here
+        
         songfilename=s.General.AudioFilename;
         songfile=strcat(osuFolder,songfilename);
         

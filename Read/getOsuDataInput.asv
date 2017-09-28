@@ -15,7 +15,7 @@ function [input,TS,TQ,FQ] = getOsuDataInput(s,songfile)
 % -----------------------
 % By Dongqi Han, OIST
 
-t_reso = 50; % temporal resolution estimation(in milisecond) 
+t_reso = 2; % temporal resolution estimation(in milisecond) 
 N_t = 128; % divide 
 P = 4;
 fq=exp(linspace(log(20),log(10000),128)); %range of frequency
@@ -27,21 +27,16 @@ data1=data0(:,1); %left channel
 data2=data0(:,2); %right channel
 
 Nfft=round(fs/(1000/(t_reso))); 
-window=hann(Nfft); 
-noverlap=floor(length(window)*0.9);
+window=hann(50*Nfft+1); 
 
-[S1,~,~]=spectrogram(data1,window,noverlap,Nfft,fs);
+[S1,~,~]=spectrogram(data1,window,[],Nfft,fs);
 
 S1 = log(1+abs(S1));
 S1 = S1 / max(max(S1)); %normalize
 
-[S2,f,t]=spectrogram(data2,window,noverlap,Nfft,fs);
+[S2,f,~]=spectrogram(data2,window,[],Nfft,fs);
+t=leng; %convert to ms
 
-
-% offset=length(window)/Nfft/2*t_reso;
-% t=linspace(offset,length(data1)/fs*1000-offset,size(S2,2)); % ms
-
-t=t*1000;
 
 S2 = log(1+abs(S2));
 S2 = S2 / max(max(S2)); %normalize
