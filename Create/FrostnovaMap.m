@@ -11,7 +11,7 @@ function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold)
 %
 % osuObj created by the inputs
 
-diffname='FrOstNovA22';
+diffname='FrOstNovA23';
 
 Ts=getRhythmPoints(s);
 

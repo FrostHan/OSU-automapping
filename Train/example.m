@@ -55,9 +55,10 @@ songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[300000,442717];
+beatmapSetRange=[500000,532523];
+%532522
 
-for osuFolderIdx=4500:length(songList)
+for osuFolderIdx=6500:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder
@@ -126,6 +127,14 @@ for osuFolderIdx=4500:length(songList)
         if BeatmapSetID==-1
             continue
         elseif BeatmapSetID<beatmapSetRange(1) || BeatmapSetID>beatmapSetRange(2)
+            continue
+        end
+    catch
+        continue
+    end
+    
+    try 
+        if ~strcmp(s.Editor.BeatDivisor,'4') %Only consider BeatDivisor=4
             continue
         end
     catch

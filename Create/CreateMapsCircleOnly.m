@@ -1,6 +1,6 @@
 function CreateMapsCircleOnly(threshold)
 
-resultDir='D:\OSU\SongMat\Create\';
+resultDir='C:\OSU\SongMat\log\Create\';
 
 matList=dir(resultDir);
 
