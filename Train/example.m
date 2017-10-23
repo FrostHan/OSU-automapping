@@ -1,64 +1,14 @@
 
-% s=osuFileRead(osufilename);
-% Ts=getRhythmPoints(s);
-% osuObj=osuObjectParser(s);
-% osuDataInput = getOsuDataInput(s,songfile);
-% osuDataTarget = getOsuDataTarget(s);
-% 
-% target=osuDataTarget;
-% input=osuDataInput;
-% [input1,target1]=regularizeDataInputTarget(input,target);
-% 
-
-% 
-% clear NET
-% clear TR
-% M=3;
-% for i=1:M
-%     net=osunet2([33,33,1]);
-%     [net,tr]=train(net,input1,target1);
-%     NET{i}=net;
-%     TR{i}=tr;
-% end
-% 
-% pf=zeros(M,1);
-% for i = 1:M
-%     pf(i)=TR{i}.best_tperf;
-% end
-%    
-% [~,ind]=min(pf);
-% net=NET{ind};
-% 
-% Y=net(input1);
-% figure
-% plot(Y(180:190),'r');
-% hold on
-% plot(target1(180:190),'b');
-% 
-% figure
-% plot(round(Y(80:95)),'r');
-% hold on
-% plot(target1(80:95),'b');
-% 
-% figure
-% hist(round(Y)-target1)
-% 
-% osuObjCr=FrostnovaMap(s,input,net,dir,0.5);
-% 
-% 
-% Skip to content
-
-
 osuSongDir='D:\Program Files (x86)\osu!\Songs\';
 
 songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[360000,382523];
+beatmapSetRange=[470000,475523];
 %532522
 
-for osuFolderIdx=4500:length(songList)
+for osuFolderIdx=7500:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder
@@ -157,12 +107,15 @@ for osuFolderIdx=4500:length(songList)
         songfilename=s.General.AudioFilename;
         songfile=strcat(osuFolder,songfilename);
         
+        
+        
         Ts=getRhythmPoints(s);
         osuObj=osuObjectParser(s);
         osuDataInput = getOsuDataInput(s,songfile);
         osuDataTarget = getOsuDataTarget(s);
+
         
-        target=osuDataTarget;c
+        target=osuDataTarget;
         input=osuDataInput;
         [input1,target1]=regularizeDataInputTarget(input,target);        
         save(saveMatName,'s','Ts','input','target','input1','target1','osuFolder');

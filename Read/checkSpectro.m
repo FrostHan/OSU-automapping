@@ -22,8 +22,8 @@ for n=idxs
     subplot(3,1,1:2)
     tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,length(Ts))),N_t);
     [TQ,FQ]=meshgrid(tq,f);
-    contourf(TQ,FQ,squeeze(osuDataInput(n,:,:)),30,'linestyle','none')
-%     contourf(squeeze(osuDataInput(n,:,:)),'linestyle','none')
+%     contourf(TQ,FQ,squeeze(osuDataInput(n,:,:)),30,'linestyle','none')
+    contourf(squeeze(osuDataInput(n,:,:)),'linestyle','none')
 %     pcolor(squeeze(osuDataInput(n,:,:)))
     
     hold on

@@ -58,7 +58,8 @@ while 1
     
     if Ts(z)>=tmptp{1} && ~isend  
         lengthof1pai=lengthof1pai_next;
-        t=tmptp{1}+(lengthof1pai/beatDivisor);
+%         t=tmptp{1}+(lengthof1pai/beatDivisor);
+%         %我曹就是这一行困扰了我一万年，为什么我当初这么SB会加上这么一行！！！！
         if j<=length(s.TimingPoints)
             while 1
                 j=j+1;
