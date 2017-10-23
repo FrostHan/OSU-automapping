@@ -10,9 +10,9 @@ function checkSpectro(osuDataInput,osuDataTarget,Ts)
 P=4;
 N=length(Ts);
 N_t=128;
-% f=exp(linspace(log(20),log(10000),128));
+f=exp(linspace(log(20),log(10000),128));
 % f=linspace(20,10000,128);
-f=linspace(1,128,128);
+% f=linspace(1,128,128);
 idxs=randperm(N-2*P-2,10)+(P+1);
 % idxs=1498
 
@@ -22,7 +22,7 @@ for n=idxs
     subplot(3,1,1:2)
     tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,length(Ts))),N_t);
     [TQ,FQ]=meshgrid(tq,f);
-    contourf(TQ,FQ,squeeze(osuDataInput(n,:,:)),'linestyle','none')
+    contourf(TQ,FQ,squeeze(osuDataInput(n,:,:)),30,'linestyle','none')
 %     contourf(squeeze(osuDataInput(n,:,:)),'linestyle','none')
 %     pcolor(squeeze(osuDataInput(n,:,:)))
     

@@ -55,10 +55,10 @@ songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[500000,532523];
+beatmapSetRange=[360000,382523];
 %532522
 
-for osuFolderIdx=6500:length(songList)
+for osuFolderIdx=4500:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder
@@ -162,7 +162,7 @@ for osuFolderIdx=6500:length(songList)
         osuDataInput = getOsuDataInput(s,songfile);
         osuDataTarget = getOsuDataTarget(s);
         
-        target=osuDataTarget;
+        target=osuDataTarget;c
         input=osuDataInput;
         [input1,target1]=regularizeDataInputTarget(input,target);        
         save(saveMatName,'s','Ts','input','target','input1','target1','osuFolder');
