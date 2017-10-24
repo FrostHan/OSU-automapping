@@ -1,4 +1,4 @@
-function checkSpectro(osuDataInput,osuDataTarget,Ts)
+function checkSpectro(osuDataInput,osuDataTarget,Ts,Nidxs)
 
 % This function is for visualizing the spectrogram around a rhythm points,
 % where it can be showed which type of object is there.
@@ -13,8 +13,12 @@ N_t=128;
 f=exp(linspace(log(20),log(10000),128));
 % f=linspace(20,10000,128);
 % f=linspace(1,128,128);
-idxs=randperm(N-2*P-2,10)+(P+1);
-% idxs=1498
+if nargin<4
+    idxs=randperm(N-2*P-2,10)+(P+1);
+else
+    idxs=Nidxs;
+end
+
 
 for n=idxs
     
@@ -25,7 +29,7 @@ for n=idxs
 %     contourf(TQ,FQ,squeeze(osuDataInput(n,:,:)),30,'linestyle','none')
     contourf(squeeze(osuDataInput(n,:,:)),'linestyle','none')
 %     pcolor(squeeze(osuDataInput(n,:,:)))
-    
+    title(['Around time t =',num2str(Ts(n)/1000),'s'])
     hold on
     
     subplot(3,1,3)

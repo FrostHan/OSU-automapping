@@ -1,14 +1,14 @@
 
-osuSongDir='D:\Program Files (x86)\osu!\Songs\';
+osuSongDir='C:\Data\OSU\songMat\Train\';
 
 songList=dir(osuSongDir);
 
-savefolder='D:\OSU\SongMat\';
+savefolder='C:\Data\OSU\songMat\Train\';
 
-beatmapSetRange=[470000,475523];
+beatmapSetRange=[0,9999999];
 %532522
 
-for osuFolderIdx=7500:length(songList)
+for osuFolderIdx=1:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder

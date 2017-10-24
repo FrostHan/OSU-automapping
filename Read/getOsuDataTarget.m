@@ -40,7 +40,7 @@ for z=z0:length(osuObj)
         break;
     end
     
-    if n>=1 && abs(osuObj(z).timing-Ts(n))<3
+    if n>=1 && abs(osuObj(z).timing-Ts(n))<=3
         switch osuObj(z).type
             case 'circle'
                 osuDataTarget(n,1)=1; % circle
@@ -69,6 +69,8 @@ for z=z0:length(osuObj)
     
 end
 
+
+% Empty timings
 for i = 1:length(Ts)
     if sum(osuDataTarget(i,1:3),2)==0
         osuDataTarget(i,4)=1;

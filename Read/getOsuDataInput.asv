@@ -83,24 +83,22 @@ while g<LTs&&((Ts(g)-Ts(g-1))-(Ts(g-1)-Ts(g-2)))<=1
     g = g + 1; % find the end of first fixed-interval part of the song
 end
 
-
+g
 
 i=0;
-
-% target =  getOsuDataTarget(s);
-% Tcircle = Ts(find(target(:,1)==1)); % timing of circles
 
 for tried_offset =  tried_offsets
     i = i+1;
     tqt = Ts(1:2:(floor(g/2)*2-1)) + tried_offset;
-%     tqt = Tcircle + tried_offset;
+    nonzeros(target)
+    %tqt = Tcircle + tried_offset;
+    
     s_tmp = interp1(t,St,tqt');
     tmp(i) = sum(s_tmp) ;
 end 
 
 [~,idx] = max(tmp);
-decode_offset = tried_offsets(idx);
-disp(['decode_offset = ',num2str(decode_offset)])
+decode_offset = tried_offsets(idx)
 
 %-------------------------------------------------------------------------
 
@@ -111,11 +109,11 @@ Sg=gpuArray(S);
 Tg=gpuArray(T);
 Fg=gpuArray(F);
 
-for n=1:length(Ts)-P
+for n=1:length(Ts)
     if n<P+1
-        tq=linspace(Ts(n)-P*interval,Ts(min(n+P,LTs)),N_t) + decode_offset ;
-    else
-        tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,LTs)),N_t) + decode_offset ;% This decode offset is due to matlab audioread 
+        tq=linspace(Ts(n)-P*interval,Ts(min(n+P,length(Ts))),N_t) + decode_offset ;
+    elseif n>LTs-P
+        tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,length(Ts))),N_t) + decode_offset ;% This decode offset is due to matlab audioread 
     end
     [TQ,FQ]=meshgrid(tq,fq);
     TQg=gpuArray(TQ);
