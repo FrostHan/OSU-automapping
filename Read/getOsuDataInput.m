@@ -74,7 +74,7 @@ osuDataInput=zeros(length(Ts),length(fq),N_t,'gpuArray'); %Input Tensor
 interval = Ts(2)-Ts(1);
 St = sum(S,1); %sum up all frequency parts
 
-tried_offsets = -round(interval/1.1):round(interval/1.1);
+tried_offsets = 0:round(interval/0.6);
 
 LTs = length(Ts);
 
