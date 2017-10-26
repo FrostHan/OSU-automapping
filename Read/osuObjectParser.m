@@ -34,7 +34,7 @@ for i = 1:N
 
         tmptp=textscan(s.TimingPoints{j},'%f,%f,%f');
         
-        if j<=length(s.TimingPoints)&&tmptp{1}<tmp{3}
+        if j<=length(s.TimingPoints)&&tmptp{1}<=tmp{3}+3
             if tmptp{2}>=0
                 BPMnow=60000/tmptp{2};
             else
@@ -83,9 +83,9 @@ for i = 1:N
         SliderLength=tmp2{2};
         
         %slider time length (interval)
-        osuObj(i).interval=SliderLength*InheritedTiming/SliderMultiplier/10000*(60000/osuObj(i).currentBPM);
-        osuObj(i).length=round( str2double(s.Editor.BeatDivisor) * osuObj(i).interval/(60000/osuObj(i).currentBPM)); % how many points 
-
+        osuObj(i).interval=SliderLength*osuObj(i).inheritedTiming/SliderMultiplier/10000*(60000/osuObj(i).currentBPM);
+        osuObj(i).length=round(12*str2double(s.Editor.BeatDivisor) * osuObj(i).interval/(60000/osuObj(i).currentBPM))/12; % how many points 
+                            % avoid beatDivisor 
 %-----------------------circle------------------------
 
     else %circle

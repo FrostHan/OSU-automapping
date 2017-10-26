@@ -48,11 +48,11 @@ for z=z0:length(osuObj)
                 
                 if osuObj(z).turns>1
                     for k=0:osuObj(z).turns
-                        osuDataTarget(n+k*(osuObj(z).length),1)=1; %regard returning sliders as circles
+                        osuDataTarget(n+round(k*(osuObj(z).length)),1)=1; %regard returning sliders as circles
                     end
                 else
                     osuDataTarget(n,2)=1; % silderHead
-                    osuDataTarget(n+osuObj(z).length,3)=1; %sliderEnd
+                    osuDataTarget(n+round(osuObj(z).length),3)=1; %sliderEnd
                 end
             case 'spinner'
                 osuDataTarget(n,2)=1; %regard spinnerHead as SliderHead
@@ -70,12 +70,24 @@ for z=z0:length(osuObj)
 end
 
 
+
 % Empty timings
 for i = 1:length(Ts)
     if sum(osuDataTarget(i,1:3),2)==0
-        osuDataTarget(i,4)=1;
+         osuDataTarget(i,4)=1;
     end
 end
+
+for i = 1:length(Ts)
+    if sum(osuDataTarget(i,:),2)~=1
+        osuDataTarget(i,1)=1;
+        osuDataTarget(i,2)=0;
+        osuDataTarget(i,3)=0;
+        osuDataTarget(i,4)=0;
+        warning('Time point t=%d overlapped, forced to be a circle',Ts(i));
+    end
+end
+
 
 end
 
