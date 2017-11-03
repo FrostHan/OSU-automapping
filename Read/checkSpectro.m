@@ -28,6 +28,7 @@ for n=idxs
     [TQ,FQ]=meshgrid(tq,f);
 %     contourf(TQ,FQ,squeeze(osuDataInput(n,:,:)),30,'linestyle','none')
     contourf(squeeze(osuDataInput(n,:,:)),'linestyle','none')
+%     colorbar
 %     pcolor(squeeze(osuDataInput(n,:,:)))
     title(['Around time t =',num2str(Ts(n)/1000),'s'])
     hold on

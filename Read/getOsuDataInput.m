@@ -113,7 +113,7 @@ Fg=gpuArray(F);
 
 for n=1:length(Ts)-P
     if n<P+1
-        tq=linspace(Ts(n)-P*interval,Ts(min(n+P,LTs)),N_t) + decode_offset ;
+        tq=linspace(max(Ts(n)-P*interval,0.001),Ts(min(n+P,LTs)),N_t) + decode_offset ;
     else
         tq=linspace(Ts(max(n-P,1)),Ts(min(n+P,LTs)),N_t) + decode_offset ;% This decode offset is due to matlab audioread 
     end

@@ -1,14 +1,14 @@
 
-osuSongDir='C:\Data\OSU\songMat\Train\';
+osuSongDir='D:\Program Files (x86)\osu!\Songs\';
 
 songList=dir(osuSongDir);
 
-savefolder='C:\Data\OSU\songMat\Train\';
+savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[0,9999999];
+beatmapSetRange=[350000,360005];
 %532522
 
-for osuFolderIdx=1:length(songList)
+for osuFolderIdx=4500:length(songList)
     
     % Redirect to osufile folder.
     % Find *.osu in the folder
@@ -25,7 +25,7 @@ for osuFolderIdx=1:length(songList)
     saveMatName=strcat(savefolder,osuFolderStruct.name,'.mat');
     osuFolder=strcat(osuSongDir,osuFolderStruct.name,'\');
     osuFileListStruct=dir(strcat(osuFolder,'*.osu'));
-    
+        
     %   osuFileListStruct(i) structure is shown as follows:
     %        name: 'Kenji Ninuma - DISCO??PRINCE (peppy) [Normal].osu'
     %      folder: 'C:\Users\Agony\AppData\Local\osu!\Songs\1 Kenji Ninuma - DISCO PRINCE'
@@ -78,6 +78,8 @@ for osuFolderIdx=1:length(songList)
             continue
         elseif BeatmapSetID<beatmapSetRange(1) || BeatmapSetID>beatmapSetRange(2)
             continue
+%         elseif ~contains(osufilename,'TV Size','IgnoreCase',true) % Only TV size
+%             continue
         end
     catch
         continue
@@ -110,6 +112,7 @@ for osuFolderIdx=1:length(songList)
         
         
         Ts=getRhythmPoints(s);
+            
         osuObj=osuObjectParser(s);
         osuDataInput = getOsuDataInput(s,songfile);
         osuDataTarget = getOsuDataTarget(s);
@@ -117,7 +120,12 @@ for osuFolderIdx=1:length(songList)
         
         target=osuDataTarget;
         input=osuDataInput;
-        [input1,target1]=regularizeDataInputTarget(input,target);        
+        [input1,target1]=regularizeDataInputTarget(input,target);      
+        
+        if nnz(isnan(input))>0
+            continue;
+        end
+        
         save(saveMatName,'s','Ts','input','target','input1','target1','osuFolder');
         disp('succsess!')
     catch ME
