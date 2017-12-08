@@ -8,6 +8,10 @@ savefolder='D:\OSU\SongMat\';
 
 % beatmapSetRange=[430000,445717];
 mapper='Fycho';
+% mapper='taeyang';
+% mapper='DJPop'
+% mapper='monstrata'
+% mapper='fanzhen'
 
 for osuFolderIdx=3000:      length(songList)
     

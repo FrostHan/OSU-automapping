@@ -1,4 +1,4 @@
-function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold)
+function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold,diffname)
 
 % This is the function to create a beatmap (mapping) by the trained network
 % and input data
@@ -11,7 +11,9 @@ function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold)
 %
 % osuObj created by the inputs
 
-diffname='FrOstNovA23';
+if nargin<5
+    diffname='FrOstNovA';
+end
 
 Ts=getRhythmPoints(s);
 

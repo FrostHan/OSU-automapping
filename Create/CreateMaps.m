@@ -1,6 +1,6 @@
-function CreateMaps(threshold)
+function CreateMaps(threshold,diffname)
 
-resultDir='D:\OSU\SongMat\Create\';
+resultDir='C:\OSU\SongMat\Create\';
 
 matList=dir(resultDir);
 
@@ -16,7 +16,7 @@ for i=1:length(matList)
         load([resultDir,inputMatFileName(3:end)],'s','osuFolder')
         y(1:10,:)
         s.Metadata
-        FrostnovaMap(s,y,osuFolder,threshold);
+        FrostnovaMap(s,y,osuFolder,threshold,diffname);
     end
 end
 

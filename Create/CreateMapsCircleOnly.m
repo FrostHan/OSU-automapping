@@ -1,6 +1,6 @@
-function CreateMapsCircleOnly(threshold)
+function CreateMapsCircleOnly(threshold,diffname)
 
-resultDir='C:\OSU\SongMat\log\Create\';
+resultDir='C:\OSU\SongMat\Create\';
 
 matList=dir(resultDir);
 
@@ -18,7 +18,7 @@ for i=1:length(matList)
         inputMatFileName(4:end)
         load([resultDir,inputMatFileName(4:end)],'s','osuFolder')
         s.Metadata
-        FrostnovaMap(s,y,osuFolder,threshold);
+        FrostnovaMap(s,y,osuFolder,threshold,diffname);
     end
 end
 
