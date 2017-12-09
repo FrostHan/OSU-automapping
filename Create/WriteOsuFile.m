@@ -101,7 +101,8 @@ for k = 1:length(osuObjCr)
         [~,idxtmp]=min(abs(osuObjCr(k).timing-Ts));
         sliderlength=10000/InheritedTimings(idxtmp)*osuObjCr(k).length/str2double(s.Editor.BeatDivisor)*SliderMultiplier;
         
-        fprintf(osufp,['%d,%d,',int2str(osuObjCr(k).timing),',2,0,L|%d:%d,%d,%f\r\n'],osuObjCr(k).x,round(osuObjCr(k).y),round(osuObjCr(k).x+sliderlength),round(osuObjCr(k).y),osuObjCr(k).turns,sliderlength);
+%         fprintf(osufp,['%d,%d,',int2str(osuObjCr(k).timing),',2,0,L|%d:%d,%d,%f\r\n'],osuObjCr(k).x,round(osuObjCr(k).y),round(osuObjCr(k).x+sliderlength),round(osuObjCr(k).y),osuObjCr(k).turns,sliderlength);
+        fprintf(osufp,['%d,%d,',int2str(osuObjCr(k).timing),',2,0,L|%d:%d,%d,%f\r\n'],osuObjCr(k).x,round(osuObjCr(k).y),250,200,osuObjCr(k).turns,sliderlength);
 
     end
 

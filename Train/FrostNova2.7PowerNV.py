@@ -305,23 +305,23 @@ for i in range(np.size(dataList)):
 
         y_result_2 = np.empty([0, 2])
         y_result_4 = np.empty([0, 4])
-        step_size = 200
+        step_size = 50
         cursor = 0
 
-        print ("test accuracy %g" % accuracy.eval(
-            feed_dict={x: inputOsuNew[-300:, :], y_: outputOsu2New[-300:, :], keep_prob: 1.0}))
+        print ("test accuracy %g" % accuracy_2.eval(
+            feed_dict={x: inputOsuNew[-300:, :], y_2: outputOsu2New[-300:, :], keep_prob: 1.0}))
         while cursor < inputOsuNew.shape[0]:
-            if inputOsuNew[cursor:, :].shape[0] > step_size:
-                y_result_2_1 = y2.eval(feed_dict={x: inputOsuNew[cursor:(cursor + step_size):1, :], keep_prob: 1.0})
-                y_result_4_1 = y4.eval(feed_dict={x: inputOsuNew[cursor:(cursor + step_size):1, :], keep_prob: 1.0})
-                y_result_2 = np.append(y_result_2, y_result_2_1, axis=0)
-                y_result_4 = np.append(y_result_2, y_result_4_1, axis=0)
+            if inputOsuNew[cursor:,:].shape[0] > step_size:
+                y_result_2_1 = y2.eval(feed_dict={x: inputOsuNew[cursor:(cursor+step_size):1,:], keep_prob: 1.0})
+                y_result_4_1 = y4.eval(feed_dict={x: inputOsuNew[cursor:(cursor+step_size):1,:], keep_prob: 1.0})
+                y_result_2 = np.append(y_result_2,y_result_2_1,axis=0)
+                y_result_4 = np.append(y_result_4,y_result_4_1,axis=0)
             else:
-                y_result_2_1 = y2.eval(feed_dict={x: inputOsuNew, keep_prob: 1.0})
-                y_result_4_1 = y4.eval(feed_dict={x: inputOsuNew, keep_prob: 1.0})
-                y_result_2 = np.append(y_result_2, y_result_2_1, axis=0)
-                y_result_4 = np.append(y_result_2, y_result_4_1, axis=0)
-            cursor += step_size
+                y_result_2_1 = y2.eval(feed_dict={x: inputOsuNew[cursor:(cursor+step_size):1,:], keep_prob: 1.0})
+                y_result_4_1 = y4.eval(feed_dict={x: inputOsuNew[cursor:(cursor+step_size):1,:], keep_prob: 1.0})
+                y_result_2 = np.append(y_result_2,y_result_2_1,axis=0)
+                y_result_4 = np.append(y_result_4,y_result_4_1,axis=0)
+            cursor+=step_size
 
         data_save = {'y2': y_result_2, 'y4': y_result_4}
 

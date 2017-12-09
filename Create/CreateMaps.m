@@ -14,7 +14,7 @@ for i=1:length(matList)
         y = zeros(size(y2,1),4);
         y(:,1) = y2(:,1) + (y4(:,1)-0.5);
         y(:,2) = y2(:,1) + (y4(:,2)-0.5);
-        y(:,2) = y2(:,1) + (y4(:,3)-0.5);
+        y(:,3) = y2(:,1) + (y4(:,3)-0.5);
         y(:,4) = y2(:,2);
         inputMatFileName=matList(i).name;
         disp(inputMatFileName(3:end))

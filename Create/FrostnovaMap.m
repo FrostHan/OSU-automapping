@@ -1,4 +1,4 @@
-function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold,diffname)
+function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold,diffname,slider_2_circle_ratio) )
 
 % This is the function to create a beatmap (mapping) by the trained network
 % and input data
@@ -11,6 +11,11 @@ function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold,diffname)
 %
 % osuObj created by the inputs
 
+
+if nargin<6
+    slider_2_circle_ratio = 0.2;
+end
+
 if nargin<5
     diffname='FrOstNovA';
 end
@@ -19,11 +24,14 @@ Ts=getRhythmPoints(s);
 
 N=length(Ts);
 
-if size(y,1)<N
-    y=[y;zeros(N-size(y,1),4)];
-end
+%----------to make some uncertainty when judgeing slider or circle-------
+y(:,1) = y(:,1) - 0.1 + 0.2*rand(size(y,1),1) - slider_2_circle_ratio;
+y(:,2) = y(:,2) - 0.1 + 0.2*rand(size(y,1),1);
+y(:,3) = y(:,3) - 0.1 + 0.2*rand(size(y,1),1);
+y(:,4) = y(:,4) > (1 - threshold) ; 
+%------------------------------------------------------------------------
 
-[~,type]=max(y(:,1:3),[],2);
+[~,type]=max(y(:,1:4),[],2);
 
 counter=1;
 
@@ -69,11 +77,11 @@ for n=1:N
         
         osuObjCr(counter).interval = Ts(n+n_itv)-Ts(n);
         osuObjCr(counter).length = n_itv;
-        type(n+n_itv)=3; %assign a slider end
+        type(n+n_itv)=4; %assign a slider end
         osuObjCr(counter).turns = 1;
         counter=counter+1;
         
-    elseif type(n)==4||3 %empty or slider end
+    elseif type(n)==4 %empty or slider end
         
         
     else %circle
@@ -110,7 +118,7 @@ if n>N||type(n)~=2
     tf=0;
 else
     k=n+1;
-    while k<N && type(k)~=3
+    while k<N 
         if type(k)==1||type(k)==2
             tf=0;
             break;
