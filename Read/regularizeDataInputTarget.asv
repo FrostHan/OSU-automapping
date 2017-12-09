@@ -24,19 +24,27 @@ target2=target_tmp;
 
 %---------------- generate 4D training data ------------------
 
+input_tmp = input;
+target_tmp = target;
+
 idxci=find(target(:,1)==1);
 idxsh=find(target(:,2)==1);
 idxse=find(target(:,3)==1);
 idxep=find(target(:,4)==1);
 
-min_num = min( [nnz(idxci), nnz(idxsh), nnz(idxse), nnz(idxep)] );
+min_num = min( [nnz(idxci), nnz(idxsh), nnz(idxse), ] )
 
+if (length(idx0)>length(idx1))
+    
+    idxdelete=idx0(randperm(length(idx0),length(idx0)-length(idx1)));
+    
+    input(idxdelete,:,:)=[];
+    target(idxdelete,:)=[]; 
+    
+end
 
-idx = ( [idxci(randperm(length(idxci),min_num));idxsh(randperm(length(idxsh),min_num));idxse(randperm(length(idxse),min_num));idxep(randperm(length(idxep),min_num)) ]);
-
-
-input4=input(idx);
-target4=target(idx,:);
+input4=input;
+target4=target;
 
 
 

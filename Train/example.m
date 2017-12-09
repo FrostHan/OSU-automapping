@@ -5,7 +5,7 @@ songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[400000,450005];
+beatmapSetRange=[350000,400005];
 
 %532522
 
@@ -121,7 +121,7 @@ for osuFolderIdx=5500:length(songList)
         
         target=osuDataTarget;
         input=osuDataInput;
-        [input1,target1]=regularizeDataInputTarget(input,target);      
+        [input1,target1,input4,target4]=regularizeDataInputTarget(input,target);      
         
         if nnz(isnan(input))>0
             continue;
