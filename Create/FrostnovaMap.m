@@ -1,4 +1,4 @@
-function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold,diffname,slider_2_circle_ratio) )
+function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold,diffname,slider_2_circle_ratio) 
 
 % This is the function to create a beatmap (mapping) by the trained network
 % and input data
@@ -13,7 +13,7 @@ function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold,diffname,slider_2_circle_
 
 
 if nargin<6
-    slider_2_circle_ratio = 0.2;
+    slider_2_circle_ratio = 0.05;
 end
 
 if nargin<5
@@ -25,15 +25,15 @@ Ts=getRhythmPoints(s);
 N=length(Ts);
 
 %----------to make some uncertainty when judgeing slider or circle-------
-y(:,1) = y(:,1) - 0.1 + 0.2*rand(size(y,1),1) - slider_2_circle_ratio;
-y(:,2) = y(:,2) - 0.1 + 0.2*rand(size(y,1),1);
-y(:,3) = y(:,3) - 0.1 + 0.2*rand(size(y,1),1);
+y(:,1) = y(:,1) - 0.05 + 0.1*rand(size(y,1),1);
+y(:,2) = y(:,2) - 0.05 + 0.1*rand(size(y,1),1) + slider_2_circle_ratio;
+y(:,3) = y(:,3) - 0.05 + 0.1*rand(size(y,1),1) + slider_2_circle_ratio;
 y(:,4) = y(:,4) > (1 - threshold) ; 
 %------------------------------------------------------------------------
 
 [~,type]=max(y(:,1:4),[],2);
 
-counter=1;
+counter=1; % object counter
 
 %--------trace by chaotic equations--------
 
@@ -51,22 +51,12 @@ counter=1;
 % hold on
 % plot(DT2:DT2:length(yC)*DT2,yC)
 % xlim([1000,3000])
-
-for n=1:N
+n=1;
+while n<=N
     
-    [tf,n_itv]=judgeslider(type,n);
+    [tf,n_itv]=judgeslider(y,n);
     
-    if type(n)==1&&y(n,1)>threshold %circle
-        osuObjCr(counter).timing= Ts(n);
-        osuObjCr(counter).type = 'circle';
-        osuObjCr(counter).x = round(250+200*cos(Ts(n)/400));
-        osuObjCr(counter).y = round(200+150*sin(Ts(n)/400));
-
-%         osuObjCr(counter).x = round(xC(round(Ts(n)/DT1)+1));
-%         osuObjCr(counter).y = round(yC(round(Ts(n)/DT2)+1));
-        counter=counter+1;
-        
-    elseif tf&&y(n,2)>threshold  %slider 
+    if tf&&y(n,2)>threshold  %slider 
         osuObjCr(counter).timing= Ts(n);
         osuObjCr(counter).type = 'slider';
         osuObjCr(counter).x = round(250+200*cos(Ts(n)/400));
@@ -77,12 +67,26 @@ for n=1:N
         
         osuObjCr(counter).interval = Ts(n+n_itv)-Ts(n);
         osuObjCr(counter).length = n_itv;
-        type(n+n_itv)=4; %assign a slider end
+        y(n+n_itv,1)=0; %assign a slider end
+        y(n+n_itv,2)=0;
+        y(n+n_itv,3)=0;
+        y(n+n_itv,4)=1;
         osuObjCr(counter).turns = 1;
         counter=counter+1;
-        
-    elseif type(n)==4 %empty or slider end
-        
+        n=n+n_itv+1;
+    
+    elseif y(n,1)>threshold %circle
+        osuObjCr(counter).timing= Ts(n);
+        osuObjCr(counter).type = 'circle';
+        osuObjCr(counter).x = round(250+200*cos(Ts(n)/400));
+        osuObjCr(counter).y = round(200+150*sin(Ts(n)/400));
+
+%         osuObjCr(counter).x = round(xC(round(Ts(n)/DT1)+1));
+%         osuObjCr(counter).y = round(yC(round(Ts(n)/DT2)+1));
+        counter=counter+1;
+        n=n+1;        
+    elseif max(y(n,1:3))<threshold %empty 
+        n=n+1;
         
     else %circle
         osuObjCr(counter).timing= Ts(n);
@@ -94,6 +98,7 @@ for n=1:N
 %         osuObjCr(counter).y = round(yC(round(Ts(n)/DT2)+1));
         
         counter=counter+1;
+        n=n+1;
     end
     
 end
@@ -108,21 +113,23 @@ end
 end
 
 
-function [tf,n_itv]=judgeslider(type,n)
+function [tf,n_itv]=judgeslider(y,n)
+
+[~,type]=max(y(:,1:4),[],2);
 
 N=length(type);
 n_itv=0;
 tf=0;
 
-if n>N||type(n)~=2
+if n>N
     tf=0;
 else
     k=n+1;
     while k<N 
-        if type(k)==1||type(k)==2
+        if type(k)~=4 && y(n,2)+y(k,3)<y(n,1)+y(k,1)
             tf=0;
             break;
-        elseif type(k)==3
+        elseif type(k)~=4 && y(n,2)+y(k,3)>y(n,1)+y(k,1)
             tf=1;
             break;
         end
@@ -131,7 +138,7 @@ else
 end
 
 if tf==1
-    n_itv=k-n;
+    n_itv = k-n;
 end
 
 end

@@ -5,7 +5,7 @@ songList=dir(osuSongDir);
 
 savefolder='D:\OSU\SongMat\';
 
-beatmapSetRange=[350000,400005];
+beatmapSetRange=[425000,500005];
 
 %532522
 
