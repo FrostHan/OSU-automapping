@@ -13,7 +13,7 @@ function osuObjCr=FrostnovaMap(s,y,osuFolder,threshold,diffname,slider_2_circle_
 
 
 if nargin<6
-    slider_2_circle_ratio = 0.05;
+    slider_2_circle_ratio = 0.08;
 end
 
 if nargin<5
