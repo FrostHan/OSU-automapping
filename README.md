@@ -17,13 +17,13 @@ OSU-automapping is meant to be created to "map" any songs by Artificial Intellig
 
 Neural network will be used to help this system learning the existed ranked beatmaps.
 
-## Who is Frostofwinter
-
-God
-
 ## What is FrOstNova
 
 FrostNova is a model to realized automapping by (perhaps recurrent) convolution neural network(CNN), where the input is the spectrogram at the time region ![](http://latex.codecogs.com/gif.latex?[t_k-\\delta t, t_k+\\delta t]) of the given song, and the output/target is a 3-dimensional 1-or-0 vector \{isCircle,isSliderHead,isSliderEnd\}
 
 ![](http://latex.codecogs.com/gif.latex?\\frac{\\partial J}{\\partial \\theta_k^{(j)}}=\\sum_{i:r(i,j)=1}{\\big((\\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\\big)x_k^{(i)}}+\\lambda \\xtheta_k^{(j)})
+
+## Example Results
+
+https://www.bilibili.com/video/BV1gW41197wA
 
